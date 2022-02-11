@@ -1,0 +1,9 @@
+---
+- hosts: test
+  gather_facts: yes
+  tasks:
+  - name: create warning maessage in file
+    template:
+      src: /etc/ansible/playbooks/templates/warn.j2
+      dest: /tmp/warn_py
+      
