@@ -3,6 +3,6 @@
     gather_facts: yes
     tasks:
     - name: edit motd
-      template: 
-        src:/etc/ansible/playbooks/templates/motd.j2
+      template:
+        src: /etc/ansible/playbooks/templates/motd.j2
         dest: /etc/motd
