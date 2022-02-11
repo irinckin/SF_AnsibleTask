@@ -6,4 +6,3 @@
     template:
       src: /etc/ansible/playbooks/templates/warn.j2
       dest: /tmp/warn_py
-      
