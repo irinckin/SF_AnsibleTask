@@ -1,0 +1,38 @@
+---
+- hosts: test
+  gather_facts: no
+  tasks:
+  - name: install httpd
+    yum:
+      name: httpd
+      state: installed
+  - name: remove confd dir
+    file:
+      path: /etc/httpd/conf.d
+      state: absent
+  - name: create confd dir
+    file:
+      path: /etc/httpd/conf.d
+      state: directory
+  - name: remove confd dir
+    file:
+      path: /etc/httpd/conf.d
+  - name: add new virtual host config
+    copy:
+      src: /etc/ansible/playbooks/files/vhost.conf
+      dest: /etc/httpd/conf.d/host1.conf
+      remote_src: yes
+    notify: restart_httpd
+  - name: create htpasswd
+    command: 'htpasswd -b -c /etc/httpd/.htpasswd user1 q1w2e3'
+  - name: create content
+    copy:
+      src: /etc/ansible/playbooks/files/content.html
+      dest: /var/www/html/index.html
+      remote_src: yes
+  handlers:
+  - name: retart httd
+    listen: restart_httpd
+    service:
+      name: httpd
+      state: restarted
