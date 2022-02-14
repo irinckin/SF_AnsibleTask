@@ -1,0 +1,14 @@
+---
+- hosts: test
+  gather_facts: yes
+  tasks:
+  - name: install postfix
+    yum:
+      name: postfix
+      state: latest
+    tags: init postfix
+  - name: remove postfix
+    yum:
+      name: postfix
+      state: removed
+    tags: drop postfix

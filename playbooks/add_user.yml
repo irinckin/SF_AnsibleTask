@@ -1,0 +1,25 @@
+---
+- hosts: test
+  vars:
+    user_name: "JohnDoe"
+  gather_facts: no
+  tasks:
+  - name: add user
+    user:
+      name: "{{ user_name }}"
+      comment: John Doe
+  - name: add .ssh directory
+    file:
+      path: /home/{{ user_name }}/.ssh
+      state: directory
+  - name: add private key
+    copy:
+      src: /etc/ansible/playbooks/files/id_rsa
+      dest: /home/{{ user_name }}/.ssh/id_rsa
+      remote_src: yes
+  - name: add public key
+    copy:
+      src: /etc/ansible/playbooks/files/id_rsa.pub
+      dest: /home/{{ user_name }}/.ssh/id_rsa.pub
+      remote_src: yes
+
